@@ -90,7 +90,9 @@ public:
      * @param priority
      */
     void setPriority(unsigned int priority) {
-        this->priority = priority;
+        if (priority >= 1 && priority <= 50) {
+            this->priority = priority;
+        }
     }
 
     /**

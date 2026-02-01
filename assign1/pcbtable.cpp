@@ -15,7 +15,7 @@
  * @param size: the capacity of the PCBTable
  */
 PCBTable::PCBTable(int size) {
-   // TODO: add your code here
+   table.resize(size);              //set table to desired size
 }
 
 /**
@@ -23,8 +23,12 @@ PCBTable::PCBTable(int size) {
  *
  */
 PCBTable::~PCBTable() {
-   // TODO: add your code here
-   // Delete all the PCBs in the table
+    for (int i = 0; i < table.size(); i++) {
+        if (table[i] != nullptr) {      //if the index contains a pointer
+            delete table[i];            //free memory
+            table[i] = nullptr;         //get rid of possible dangler
+        }
+    }
 }
 
 /**
@@ -34,8 +38,10 @@ PCBTable::~PCBTable() {
  * @return PCB*: pointer to the PCB at index "idx"
  */
 PCB* PCBTable::getPCB(unsigned int idx) {
-    // TODO: add your code here
-    return NULL;
+    if (idx >= table.size()) {  //if index is out of bounds (or empty)
+        return nullptr;         //return nullptr
+    }
+    return table[idx];          //otherwise return a valid pointer
 }
 
 /**
@@ -44,6 +50,18 @@ PCB* PCBTable::getPCB(unsigned int idx) {
  * @param pcb: the PCB to add
  */
 void PCBTable::addPCB(PCB *pcb, unsigned int idx) {
-    // TODO: add your code here
-    // Add a PCB pointer to the PCBTable at index idx.
+
+    //Case 1: Pointer is null/Index is invalid/Pointer is a duplicate at the index
+    if (pcb == nullptr || idx >= table.size() || pcb == table[idx]) { 
+        return;
+    }
+
+    //Case 2: Index already contains a pointer
+    if (table[idx] != nullptr) {
+        delete table[idx];          //remove existing pointer
+        table[idx] = pcb;           //assign new pointer
+    } else {
+        //Case 3: Index is unoccupied
+        table[idx] = pcb;
+    }
 }
