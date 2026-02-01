@@ -24,6 +24,46 @@ ReadyQueue::~ReadyQueue() {
 }
 
 /**
+* @brief Copy constructor
+*/
+ReadyQueue::ReadyQueue(const ReadyQueue& other) {
+    
+    //copy over member data
+    this->capacity = other.capacity;
+    this->ctr = other.ctr;
+    pQueue = new PCB*[capacity];
+
+    //populate the new queue with shallow copies to pointers
+    for (int i = 0; i < capacity; i++) {
+        pQueue[i] = other.pQueue[i];
+    }
+}
+
+/**
+* @brief Copy assignment override
+*/
+ReadyQueue& ReadyQueue::operator=(const ReadyQueue& other) {
+    //Case: They are the same object
+    if (this == &other) {
+        return *this; //return itself
+    }
+
+    delete[] pQueue; //free the existing queue
+
+    //Copy member data
+        this->capacity = other.capacity;
+    this->ctr = other.ctr;
+    pQueue = new PCB*[capacity];
+
+    //populate the new queue with shallow copies to pointers
+    for (int i = 0; i < capacity; i++) {
+        pQueue[i] = other.pQueue[i];
+    }
+
+    return *this;
+}
+
+/**
 * @brief Resizes the pQueue 
 */
 void ReadyQueue::resize() {

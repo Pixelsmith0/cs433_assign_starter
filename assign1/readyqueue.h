@@ -32,6 +32,16 @@ public:
      */
     ~ReadyQueue();
 
+    /**
+     * @brief Copy constructor
+    */
+    ReadyQueue(const ReadyQueue& other);
+
+    /**
+     * @brief Copy assignment override
+    */
+    ReadyQueue& operator=(const ReadyQueue& other);
+
 	// You may add additional member functions, but don't change the definitions of the following four member functions.
 
     /**
