@@ -40,7 +40,7 @@ void ReadyQueue::resize() {
 }
 
 /**
-* @brief Heapifys up
+* @brief Restores the max heap property after adding an item
 */
 void ReadyQueue::heapifyUp(int idx) {
     
@@ -63,6 +63,41 @@ void ReadyQueue::heapifyUp(int idx) {
 
     //Recursive call up with new base index
     heapifyUp(parent);
+}
+
+/**
+* @brief Restores the max heap property after removing an item
+*/
+void ReadyQueue::heapifyDown(int idx) {
+    
+    int current = idx; //current index (parent)
+    int left = (2 * current) + 1; //left child index
+    int right = (2 * current) + 2; //right child index
+
+    //Base case 1: No children exist (check against left child index)
+    if (left >= ctr) {
+        return;
+    }
+
+    int child;
+    if (right >= ctr) { //If the right child does not exist, default to the left child
+        child = left;
+    } else {
+        child = (queue[left]->priority > queue[right]->priority ? left : right); //Otherwise, get the index of the higher priority child
+    }
+
+    //Base case 2: Child is less than or equal to current (parent)
+    if (queue[child]->priority <= queue[current]->priority) {
+        return;
+    }
+
+    //Current is smaller than it's largest child. Swap them
+    PCB* temp = queue[child]; //save a pointer to the child
+    queue[child] = queue[current];
+    queue[current] = temp;
+
+    //Recursive call down with new base index
+    heapifyDown(child);
 }
 
 /**

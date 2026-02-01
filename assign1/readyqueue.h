@@ -68,8 +68,13 @@ public:
     void resize();
 
     /**
-     * @brief Heapifys up
+     * @brief Restores the max heap property after adding an item
      */
     void heapifyUp(int idx);
+
+    /**
+    * @brief Restores the max heap property after removing an item
+    */
+    void heapifyDown(int idx);
 
 };
