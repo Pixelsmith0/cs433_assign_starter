@@ -134,8 +134,19 @@ void ReadyQueue::addPCB(PCB *pcbPtr) {
  * @return PCB*: the pointer to the PCB with the highest priority
  */
 PCB* ReadyQueue::removePCB() {
-    //TODO: add your code here
-    // When removing a PCB from the queue, you must change its state to RUNNING.
+    
+    //Check for empty queue 
+    if (ctr == 0) {
+        return nullptr;
+    }
+
+    PCB* temp = queue[0];               //Save a pointer to the head
+    queue[0] = queue[ctr - 1];          //Move last item to the head
+    queue[ctr - 1] = nullptr;           //Clean
+    ctr--;                              //Decrease the count of items in the queue
+    heapifyDown(0);                     //Restore the max heap property
+    temp->setState(ProcState::RUNNING); //Update the state of the removed PCB
+    return temp;                        //Return pointer to the removed PCB
 }
 
 /**
@@ -151,5 +162,9 @@ int ReadyQueue::size() {
  * @brief Display the PCBs in the queue.
  */
 void ReadyQueue::displayAll() {
-    //TODO: add your code here
+    for (int i = 0; i < ctr; i++) {
+        if (queue[i] != nullptr) {
+            queue[i]->display();
+        }
+    }
 }
