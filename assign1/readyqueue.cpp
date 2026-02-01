@@ -106,8 +106,26 @@ void ReadyQueue::heapifyDown(int idx) {
  * @param pcbPtr: the pointer to the PCB to be added
  */
 void ReadyQueue::addPCB(PCB *pcbPtr) {
-    //TODO: add your code here
-    // When adding a PCB to the queue, you must change its state to READY.
+
+    //Validate the pointer
+    if (pcbPtr == nullptr) { 
+        return;
+    }
+
+    //Validate Status: Do not accept a READY PCB (duplicate)
+    if (pcbPtr->getState() == ProcState::READY) {
+        return;
+    }
+
+    //Resize if at capacity
+    if (ctr == capacity) {
+        resize();
+    }
+
+    pcbPtr->setState(ProcState::READY); //Set the PCB status to READY
+    queue[ctr] = pcbPtr;                //Add the PCB to the queue
+    heapifyUp(ctr);                     //Restore the max heap property
+    ctr++;                              //Increase the count of items in the queue
 }
 
 /**
