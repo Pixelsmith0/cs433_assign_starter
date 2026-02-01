@@ -18,8 +18,9 @@
  */
 class ReadyQueue {
 private:
-    // TODO: add your private member variables here
-    // choose a data structure for the ReadyQueue. No STL class is allowed.
+    int capacity; //max capacity of the queue
+    int ctr; //current number of items in the queue
+    PCB** queue;
 
 public:
     /**
@@ -60,5 +61,15 @@ public:
       * @brief Display the PCBs in the queue.
       */
 	void displayAll();
+
+    /**
+    * @brief Resizes the queue 
+    */
+    void resize();
+
+    /**
+     * @brief Heapifys up
+     */
+    void heapifyUp(int idx);
 
 };
