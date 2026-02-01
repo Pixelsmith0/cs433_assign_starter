@@ -1,13 +1,11 @@
 /**
  * Assignment 1: priority queue of processes
  * @file readyqueue.h
- * @author ??? (TODO: your name)
+ * @author Michael Fetterly
  * @brief ReadyQueue is a queue of PCB's that are in the READY state to be scheduled to run.
  * It should be a priority queue such that the process with the highest priority can be selected next.
  * @version 0.1
  */
-//You must complete the all parts marked as "TODO". Delete "TODO" after you are done.
-// Remember to add sufficient comments to your code
 #pragma once
 
 #include "pcb.h"
@@ -20,7 +18,7 @@ class ReadyQueue {
 private:
     int capacity; //max capacity of the queue
     int ctr; //current number of items in the queue
-    PCB** queue;
+    PCB** pQueue;
 
 public:
     /**
